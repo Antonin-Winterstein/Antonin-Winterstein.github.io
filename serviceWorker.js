@@ -1,1 +1,1 @@
-importScripts("https://ppwykd9cgq.sharedwithexpose.com/serviceWorker.js");
+importScripts("https://g5e32czqzr.sharedwithexpose.com/serviceWorker.js");
