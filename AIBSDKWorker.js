@@ -1,0 +1,1 @@
+importScripts("https://dev.allinbox.fr/sdk/webpush/v1/AIB.sw.js");

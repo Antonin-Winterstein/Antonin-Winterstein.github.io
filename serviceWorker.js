@@ -1,1 +1,0 @@
-importScripts("https://dev.allinbox.fr/serviceWorker.js");
