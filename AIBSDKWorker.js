@@ -1,1 +1,1 @@
-importScripts("https://zyihfpyfmj.sharedwithexpose.com/sdk/webpush/v1/AIB.sw.js");
+importScripts("https://zyihfpyfmj.sharedwithexpose.com/sdk/webpush/v1/AIB.sw.js?time=" + Date.now());
