@@ -1,0 +1,18 @@
+{
+  "short_name": "Antonin-Winterstein",
+  "name": "Antonin-Winterstein",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "id": "/",
+  "start_url": "/",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#FFFFFF",
+  "description": "Antonin-Winterstein PWA"
+}
