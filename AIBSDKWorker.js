@@ -1,1 +1,1 @@
-importScripts("https://azeix-91-151-124-250.run.pinggy-free.link/sdk/webpush/v1/AIB.sw.js");
+importScripts("https://irliow0esj.sharedwithexpose.com/sdk/webpush/v1/AIB.sw.js");
