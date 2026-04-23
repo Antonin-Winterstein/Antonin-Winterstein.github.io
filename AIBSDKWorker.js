@@ -1,1 +1,1 @@
-importScripts("https://avwwyws7ck.sharedwithexpose.com/sdk/webpush/v1/AIB.sw.js");
+importScripts("https://gdtkwnup3x.sharedwithexpose.com/sdk/webpush/v1/AIB.sw.js");
