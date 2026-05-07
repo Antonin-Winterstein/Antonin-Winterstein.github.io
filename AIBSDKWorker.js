@@ -1,1 +1,1 @@
-importScripts("https://app.allinbox.com/sdk/webpush/v1/AIB.sw.js");
+importScripts("https://depressively-isostemonous-lakeesha.ngrok-free.dev/sdk/webpush/v1/AIB.sw.js");
