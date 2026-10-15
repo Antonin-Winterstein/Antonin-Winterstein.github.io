@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Nos formules — Karting Test</title>
+    <meta charset="utf-8">
+    <title>Nos formules - Horizon</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Les formules des centres de loisirs Horizon : Découverte et Journée.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="https://app.allinbox.com/sdk/chatbot/v1/AIB.sdk.js" data-aib-chatbot-key="cbk_gejkbjx2agtnqrdwcpopzkck" defer></script>
 </head>
 <body>
-  <h1>Nos formules</h1>
-  <p>Choisissez la formule adaptée à votre profil. Ces deux pages détail sont à
-     profondeur 2 depuis l'accueil : elles doivent être crawlées.</p>
-  <ul>
-    <li><a href="/produits/produit-a.html">Formule Découverte</a></li>
-    <li><a href="/produits/produit-b.html">Formule Compétition</a></li>
-  </ul>
-  <p><a href="/">Accueil</a></p>
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="/">Horizon</a>
+        <nav class="site-nav" aria-label="Navigation principale">
+            <ul>
+                <li><a href="/tarifs.html">Nos tarifs</a></li>
+                <li><a href="/faq.html">Questions fréquentes</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/produits/" aria-current="page">Nos formules</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="wrap intro">
+        <h1>Nos formules</h1>
+        <p>
+            Choisissez la formule adaptée à votre visite. Ces deux pages détail sont à
+            profondeur 2 depuis l'accueil : elles doivent être crawlées.
+        </p>
+    </div>
+
+    <div class="wrap page-body">
+        <div class="card-grid">
+            <section class="card">
+                <h2>Formule Découverte</h2>
+                <p>Une heure pour essayer toutes les activités, avec un accueil personnalisé.</p>
+                <p class="offer-price">15 € <small>par personne</small></p>
+                <a class="card-link" href="/produits/produit-a.html">Voir la formule Découverte</a>
+            </section>
+            <section class="card">
+                <h2>Formule Journée</h2>
+                <p>Une journée complète au centre, avec le repas du midi et un accès illimité.</p>
+                <p class="offer-price">39 € <small>par personne</small></p>
+                <a class="card-link" href="/produits/produit-b.html">Voir la formule Journée</a>
+            </section>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+        <div class="links">
+            <a href="/">Accueil</a>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

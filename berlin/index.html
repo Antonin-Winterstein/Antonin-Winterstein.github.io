@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Berlin - Horizon</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Le centre Horizon de Berlin : adresse, horaires et accès.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/site.css">
+
+    <!-- Must run before the SDK: sends its web push calls to the test instance. -->
+    <script src="../assets/aib-local.js"></script>
+    <script src="/assets/sdk/AIB.sdk.js"
+            data-aib-token="c51e306dda35d2ff54098b62c121409617af012d6ecc514c934bf74064b447b5"
+            data-sw-path="/berlin/AIBSDKWorker.js"
+            data-sw-scope="/berlin/"
+            charset="utf-8"
+            defer></script>
+    <script src="https://app.allinbox.com/sdk/chatbot/v1/AIB.sdk.js" data-aib-chatbot-key="cbk_gejkbjx2agtnqrdwcpopzkck" defer></script>
+    <script src="../assets/push-panel.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="../">Horizon</a>
+        <nav class="site-nav" aria-label="Nos centres">
+            <ul>
+                <li><a href="../paris/">Paris</a></li>
+                <li><a href="../rome/">Rome</a></li>
+                <li><a href="../berlin/" aria-current="page">Berlin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <img class="city-hero"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/960px-Brandenburger_Tor_abends.jpg"
+         alt="La porte de Brandebourg éclairée à la tombée de la nuit"
+         width="960" height="640">
+
+    <div class="wrap city-title">
+        <h1>Berlin</h1>
+        <p>Notre centre de Berlin est près de la porte de Brandebourg.</p>
+    </div>
+
+    <div class="wrap city-body">
+        <div>
+            <section aria-labelledby="about-title">
+                <h2 id="about-title">Le centre</h2>
+                <p>
+                    Le centre de Berlin occupe une ancienne halle sur deux niveaux. Vous pouvez
+                    réserver une session en ligne ou sur place, seul ou en groupe.
+                </p>
+            </section>
+
+            <section aria-labelledby="info-title">
+                <h2 id="info-title">Infos pratiques</h2>
+                <dl class="facts">
+                    <div><dt>Adresse</dt><dd>Probestraße 5, 10117 Berlin</dd></div>
+                    <div><dt>Horaires</dt><dd>Du lundi au samedi de 10h à 21h</dd></div>
+                    <div><dt>Accès</dt><dd>S-Bahn, station Brandenburger Tor</dd></div>
+                </dl>
+            </section>
+        </div>
+
+        <aside class="push-panel" data-push-panel data-current-scope="/berlin/" aria-labelledby="push-title">
+            <h2 id="push-title">Notifications sur ce domaine</h2>
+            <p class="permission" data-push-permission>Le panneau lit l'état du navigateur.</p>
+            <ul class="stands" data-push-stands></ul>
+            <p class="note">
+                Chaque centre enregistre son propre worker, et chaque worker reçoit sa propre
+                adresse d'abonnement. Le navigateur donne une seule autorisation pour tout le domaine.
+            </p>
+            <button type="button" class="button" data-push-refresh>Actualiser l'état</button>
+        </aside>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+        <p>
+            Photo par <a href="https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_abends.jpg">Thomas Wolf</a>,
+            licence <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>, via Wikimedia Commons.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

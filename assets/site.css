@@ -1,0 +1,495 @@
+:root {
+    --paper: #F6F7F9;
+    --surface: #FFFFFF;
+    --ink: #1D2433;
+    --muted: #5F6B7A;
+    --line: #DDE2E8;
+    --accent: #2457D6;
+    --on: #1F9D55;
+    --waiting: #D99A00;
+    --off: #A3ACB8;
+    --radius: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* height: auto lets the CSS aspect ratio win over the height attribute. */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--accent);
+    text-underline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.wrap {
+    width: min(1120px, 100% - 32px);
+    margin-inline: auto;
+}
+
+/* Header */
+
+.site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 32px;
+    padding-block: 18px;
+}
+
+.brand {
+    color: var(--ink);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+}
+
+.site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-nav a {
+    color: var(--muted);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+    color: var(--ink);
+}
+
+/* Home */
+
+.intro {
+    padding-block: 56px 40px;
+}
+
+.intro h1 {
+    max-width: 18ch;
+    margin: 0 0 16px;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+}
+
+.intro p {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.125rem;
+}
+
+.section {
+    padding-block: 32px;
+}
+
+.section h2 {
+    margin: 0 0 20px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.cities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.city-card {
+    position: relative;
+}
+
+.city-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.city-card h3 {
+    margin: 14px 0 2px;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.city-card p {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* The whole card is clickable through the title link. */
+.city-card a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.city-card a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.city-card:hover h3 {
+    color: var(--accent);
+}
+
+.hours p {
+    max-width: 62ch;
+    margin: 0;
+}
+
+/* City page */
+
+.city-hero {
+    width: 100%;
+    height: clamp(220px, 46vh, 460px);
+    object-fit: cover;
+}
+
+.city-title {
+    padding-block: 32px 8px;
+}
+
+.city-title h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 7vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.city-title p {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 1.125rem;
+}
+
+.city-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-block: 24px 48px;
+}
+
+@media (min-width: 900px) {
+    .city-body {
+        grid-template-columns: minmax(0, 1fr) 420px;
+        align-items: start;
+    }
+}
+
+.city-body h2 {
+    margin: 0 0 8px;
+    font-size: 1.125rem;
+    font-weight: 800;
+}
+
+.city-body section + section {
+    margin-top: 28px;
+}
+
+.city-body p {
+    max-width: 62ch;
+    margin: 0;
+}
+
+.facts {
+    margin: 0;
+}
+
+.facts div {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    padding-block: 10px;
+    border-top: 1px solid var(--line);
+}
+
+.facts dt {
+    color: var(--muted);
+}
+
+.facts dd {
+    margin: 0;
+}
+
+/* Push test panel */
+
+.push-panel {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.push-panel h2 {
+    margin-bottom: 4px;
+}
+
+.push-panel .permission {
+    margin: 0 0 16px;
+    color: var(--muted);
+}
+
+.permission strong {
+    color: var(--ink);
+}
+
+.stands {
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.stand {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 2px 12px;
+    padding-block: 12px;
+    border-top: 1px solid var(--line);
+}
+
+.stand:last-child {
+    border-bottom: 1px solid var(--line);
+}
+
+.stand-light {
+    width: 12px;
+    height: 12px;
+    margin-top: 6px;
+    background: var(--off);
+    border-radius: 50%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stand[data-state="worker"] .stand-light {
+    background: var(--waiting);
+}
+
+.stand[data-state="subscribed"] .stand-light {
+    background: var(--on);
+    box-shadow: 0 0 0 4px rgb(31 157 85 / 0.18);
+}
+
+.stand-name {
+    font-weight: 700;
+}
+
+.stand-name small {
+    margin-left: 6px;
+    color: var(--accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+}
+
+.stand-detail {
+    grid-column: 2;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    overflow-wrap: anywhere;
+}
+
+.push-panel .note {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 0.9375rem;
+}
+
+.button {
+    padding: 10px 16px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button:hover {
+    border-color: var(--ink);
+}
+
+/* Content pages: prices, questions, contact, offers */
+
+.page-body {
+    padding-block: 0 56px;
+}
+
+.card {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.card h2 {
+    margin: 0 0 8px;
+    font-size: 1.125rem;
+    font-weight: 800;
+}
+
+.card p {
+    margin: 0 0 4px;
+}
+
+.card .card-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: 700;
+}
+
+.price-list {
+    max-width: 720px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.price-list li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px 24px;
+    align-items: baseline;
+    padding-block: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.price-list li:last-child {
+    border-bottom: 1px solid var(--line);
+}
+
+.price-name {
+    font-weight: 700;
+}
+
+.price-detail {
+    grid-column: 1;
+    color: var(--muted);
+    font-size: 0.9375rem;
+}
+
+.price {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-size: 1.375rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.faq {
+    max-width: 720px;
+}
+
+.faq section {
+    padding-block: 20px;
+    border-top: 1px solid var(--line);
+}
+
+.faq section:last-child {
+    border-bottom: 1px solid var(--line);
+}
+
+.faq h2 {
+    margin: 0 0 6px;
+    font-size: 1.125rem;
+    font-weight: 800;
+}
+
+.faq p {
+    max-width: 62ch;
+    margin: 0;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.card .offer-price {
+    margin-top: 12px;
+    font-size: 1.375rem;
+    font-weight: 800;
+}
+
+.offer-price small {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.page-body .facts {
+    max-width: 720px;
+}
+
+/* Footer */
+
+.site-footer {
+    padding-block: 28px 40px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.site-footer .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 12px;
+}
+
+.site-footer p {
+    margin: 4px 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stand-light {
+        transition: none;
+    }
+}

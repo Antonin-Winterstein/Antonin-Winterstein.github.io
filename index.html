@@ -2,37 +2,102 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Accueil - Karting Test</title>
+    <title>Accueil - Horizon</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="description" content="Site de test pour le crawler du chatbot.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="assets/site.css">
+    <!-- Production web push, disabled during the local multi-worker test (/paris/, /rome/, /berlin/).
+         Uncomment to restore it.
     <script src="https://app.allinbox.com/sdk/webpush/v1/AIB.sdk.js"
             data-aib-token="edea1ac606e11cb673a3dea5e064bde9b5d66ebb2da4da2c0639f2120e735822" data-aib-subscriber-id="" charset="utf-8" defer></script>
+    -->
     <script src="https://app.allinbox.com/sdk/chatbot/v1/AIB.sdk.js" data-aib-chatbot-key="cbk_gejkbjx2agtnqrdwcpopzkck" defer></script>
 </head>
 <body>
-<h1>Bienvenue au Karting Test</h1>
-<p>
-    Nous sommes un centre de karting indoor ouvert 7j/7. Réservez une session,
-    découvrez nos tarifs et posez vos questions au chatbot. Cette page d'accueil
-    est le point de départ du crawl : tous les liens ci-dessous doivent être suivis.
-</p>
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="/">Horizon</a>
+        <nav class="site-nav" aria-label="Navigation principale">
+            <ul>
+                <li><a href="/tarifs.html">Nos tarifs</a></li>
+                <li><a href="/faq.html">Questions fréquentes</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/produits/">Nos formules</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-<nav>
-    <ul>
-        <li><a href="/tarifs.html">Nos tarifs</a></li>
-        <li><a href="/faq.html">Questions fréquentes</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-        <li><a href="/produits/">Nos formules</a></li>
-    </ul>
-</nav>
+<main>
+    <div class="wrap intro">
+        <h1>Bienvenue chez Horizon</h1>
+        <p>
+            Horizon accueille petits et grands dans trois centres de loisirs couverts, à Paris,
+            Rome et Berlin. Réservez une entrée, découvrez nos tarifs et posez vos questions au
+            chatbot. Cette page d'accueil est le point de départ du crawl : tous les liens
+            ci-dessous doivent être suivis.
+        </p>
+    </div>
 
-<h2>Horaires</h2>
-<p>Ouvert du lundi au dimanche de 10h à 22h. Dernière session à 21h30.</p>
+    <section class="wrap section" aria-labelledby="cities-title">
+        <h2 id="cities-title">Nos centres</h2>
+        <ul class="cities">
+            <li class="city-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG/960px-Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG"
+                     alt="La Seine et la tour Eiffel vues depuis la tour Saint-Jacques"
+                     width="960" height="638" loading="lazy">
+                <h3><a href="paris/">Paris</a></h3>
+                <p>Quai des Essais, 75012 Paris</p>
+            </li>
+            <li class="city-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/960px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg"
+                     alt="Le Colisée de Rome sous un ciel bleu"
+                     width="960" height="563" loading="lazy">
+                <h3><a href="rome/">Rome</a></h3>
+                <p>Via dei Test 21, 00184 Roma</p>
+            </li>
+            <li class="city-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/960px-Brandenburger_Tor_abends.jpg"
+                     alt="La porte de Brandebourg éclairée à la tombée de la nuit"
+                     width="960" height="640" loading="lazy">
+                <h3><a href="berlin/">Berlin</a></h3>
+                <p>Probestraße 5, 10117 Berlin</p>
+            </li>
+        </ul>
+    </section>
 
-<footer>
-    <a href="/admin/secret.html">Espace admin</a>
-    <a href="https://www.google.com">Un site externe</a>
+    <section class="wrap section hours" aria-labelledby="hours-title">
+        <h2 id="hours-title">Horaires</h2>
+        <p>
+            Chaque centre a ses horaires. Paris ouvre tous les jours de 10h à 22h, Rome tous
+            les jours de 11h à 23h, et Berlin du lundi au samedi de 10h à 21h.
+        </p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+        <div class="links">
+            <a href="/admin/secret.html">Espace admin</a>
+            <a href="https://www.google.com">Un site externe</a>
+        </div>
+        <p>
+            Photos via Wikimedia Commons :
+            Paris par <a href="https://commons.wikimedia.org/wiki/File:Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG">Zinneke</a>
+            (<a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>),
+            Rome par <a href="https://commons.wikimedia.org/wiki/File:Colosseum_in_Rome,_Italy_-_April_2007.jpg">Diliff</a>
+            (<a href="https://creativecommons.org/licenses/by-sa/2.5">CC BY-SA 2.5</a>),
+            Berlin par <a href="https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_abends.jpg">Thomas Wolf</a>
+            (<a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>).
+        </p>
+    </div>
 </footer>
 </body>
 </html>

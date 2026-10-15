@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Page orpheline — Karting Test</title>
+    <meta charset="utf-8">
+    <title>Page orpheline - Horizon</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-  <h1>Page orpheline</h1>
-  <p>MARQUEUR-ORPHELINE-67890. Cette page est dans le sitemap.xml mais AUCUN lien
-     ne pointe vers elle. Le crawler suit les liens : il ne devrait donc PAS la
-     trouver. Si ce marqueur apparaît, c'est que le sitemap est utilisé pour la
-     découverte (ce qui n'est pas le cas aujourd'hui).</p>
+<!-- Crawler test: this page is listed in sitemap.xml, but no page may link to it. -->
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="/">Horizon</a>
+    </div>
+</header>
+
+<main>
+    <div class="wrap intro">
+        <h1>Page orpheline</h1>
+        <p>
+            MARQUEUR-ORPHELINE-67890. Cette page est dans le sitemap.xml mais AUCUN lien
+            ne pointe vers elle. Le crawler suit les liens : il ne devrait donc PAS la
+            trouver. Si ce marqueur apparaît, c'est que le sitemap est utilisé pour la
+            découverte (ce qui n'est pas le cas aujourd'hui).
+        </p>
+    </div>
+</main>
 </body>
 </html>

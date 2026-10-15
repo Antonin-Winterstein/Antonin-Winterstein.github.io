@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Paris - Horizon</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Le centre Horizon de Paris : adresse, horaires et accès.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="../assets/site.css">
+
+    <!-- Must run before the SDK: sends its web push calls to the test instance. -->
+    <script src="../assets/aib-local.js"></script>
+    <script src="/assets/sdk/AIB.sdk.js"
+            data-aib-token="04289d6187035f091da3c1d6b2a3273425839c5bbb368d9374229eba50a60454"
+            data-sw-path="/paris/AIBSDKWorker.js"
+            data-sw-scope="/paris/"
+            charset="utf-8"
+            defer></script>
+    <script src="https://app.allinbox.com/sdk/chatbot/v1/AIB.sdk.js" data-aib-chatbot-key="cbk_gejkbjx2agtnqrdwcpopzkck" defer></script>
+    <script src="../assets/push-panel.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="../">Horizon</a>
+        <nav class="site-nav" aria-label="Nos centres">
+            <ul>
+                <li><a href="../paris/" aria-current="page">Paris</a></li>
+                <li><a href="../rome/">Rome</a></li>
+                <li><a href="../berlin/">Berlin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <img class="city-hero"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG/960px-Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG"
+         alt="La Seine et la tour Eiffel vues depuis la tour Saint-Jacques"
+         width="960" height="638">
+
+    <div class="wrap city-title">
+        <h1>Paris</h1>
+        <p>Notre centre de Paris est à deux pas des quais de Seine.</p>
+    </div>
+
+    <div class="wrap city-body">
+        <div>
+            <section aria-labelledby="about-title">
+                <h2 id="about-title">Le centre</h2>
+                <p>
+                    Le centre de Paris accueille les visiteurs sept jours sur sept. Vous pouvez
+                    réserver une session en ligne ou sur place, seul ou en groupe.
+                </p>
+            </section>
+
+            <section aria-labelledby="info-title">
+                <h2 id="info-title">Infos pratiques</h2>
+                <dl class="facts">
+                    <div><dt>Adresse</dt><dd>Quai des Essais, 75012 Paris</dd></div>
+                    <div><dt>Horaires</dt><dd>Tous les jours de 10h à 22h</dd></div>
+                    <div><dt>Accès</dt><dd>Métro ligne 14, station Gare de Lyon</dd></div>
+                </dl>
+            </section>
+        </div>
+
+        <aside class="push-panel" data-push-panel data-current-scope="/paris/" aria-labelledby="push-title">
+            <h2 id="push-title">Notifications sur ce domaine</h2>
+            <p class="permission" data-push-permission>Le panneau lit l'état du navigateur.</p>
+            <ul class="stands" data-push-stands></ul>
+            <p class="note">
+                Chaque centre enregistre son propre worker, et chaque worker reçoit sa propre
+                adresse d'abonnement. Le navigateur donne une seule autorisation pour tout le domaine.
+            </p>
+            <button type="button" class="button" data-push-refresh>Actualiser l'état</button>
+        </aside>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+        <p>
+            Photo par <a href="https://commons.wikimedia.org/wiki/File:Seine_and_Eiffel_Tower_from_Tour_Saint_Jacques_2013-08.JPG">Zinneke</a>,
+            licence <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>, via Wikimedia Commons.
+        </p>
+    </div>
+</footer>
+</body>
+</html>
