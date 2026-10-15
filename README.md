@@ -23,22 +23,26 @@ portent une balise `noindex` et ne figurent pas dans `sitemap.xml`.
 ## Test des notifications web sur plusieurs dossiers
 
 Le test reproduit un site à plusieurs dossiers sur un même domaine, comme un WordPress
-multisite en sous-dossiers : un seul domaine, et un centre par dossier.
+multisite en sous-dossiers : un seul domaine, un canal pour le réseau à la racine, et un canal
+par centre dans son dossier.
 
 ```
-/                 accueil, sans notifications (comme l'accueil d'un réseau)
+/                 accueil + AIBSDKWorker.js, portée /          (canal du réseau)
 /paris/           page + AIBSDKWorker.js, portée /paris/
 /rome/            page + AIBSDKWorker.js, portée /rome/
 /berlin/          page + AIBSDKWorker.js, portée /berlin/
 ```
 
-Chaque page de centre charge le SDK avec `data-sw-path` et `data-sw-scope` sur son dossier. Le
-navigateur enregistre donc un worker par centre, et chaque worker reçoit sa propre adresse
-d'abonnement. Le navigateur donne en revanche une seule autorisation de notification pour tout
-le domaine.
+Chaque page de centre charge le SDK avec `data-sw-path` et `data-sw-scope` sur son dossier.
+L'accueil le charge sans ces attributs, donc avec le worker de la racine et la portée `/`. Le
+navigateur enregistre ainsi un worker par canal, et chaque worker reçoit sa propre adresse
+d'abonnement, même si la portée du réseau couvre aussi les dossiers. Le navigateur donne en
+revanche une seule autorisation de notification pour tout le domaine. Une page ne porte jamais
+deux canaux à la fois.
 
 Le panneau « Notifications sur ce domaine » (`assets/push-panel.js`) affiche cet état sur
-chaque page de centre : l'autorisation du domaine, puis un voyant par centre.
+l'accueil et sur chaque page de centre : l'autorisation du domaine, puis un voyant pour le
+réseau et pour chaque centre.
 
 - Gris : le navigateur n'a pas de worker pour ce centre.
 - Orange : le worker existe, mais le navigateur n'a pas d'abonnement.
@@ -50,12 +54,12 @@ Pendant le test, les notifications passent par une instance de test, joignable p
 
 - `assets/aib-local.js` redirige vers le tunnel les appels de notifications faits par la page.
   Le chatbot n'est pas concerné.
-- Chaque `AIBSDKWorker.js` de centre fait la même redirection, puis ignore les statistiques
-  d'affichage et de clic.
+- Chaque `AIBSDKWorker.js`, celui de la racine compris, fait la même redirection, puis ignore
+  les statistiques d'affichage et de clic.
 
-Les pages et les workers des centres chargent une version modifiée du SDK, rangée dans
-`assets/sdk/`. Cette version garde un état par centre et demande l'accord du visiteur pour
-chaque centre.
+L'accueil, les pages et les workers chargent une version modifiée du SDK, rangée dans
+`assets/sdk/`. Cette version garde un état par canal et demande l'accord du visiteur pour
+chaque canal.
 
 Si l'adresse du tunnel change, la commande suivante liste les fichiers à mettre à jour :
 
@@ -68,9 +72,11 @@ ne doit tourner que pendant un test.
 
 ### Revenir à l'intégration d'origine
 
-L'accueil garde l'intégration d'origine des notifications en commentaire. Pour la rétablir, il
-suffit de retirer le commentaire. Le fichier `AIBSDKWorker.js` à la racine reste le worker de
-cette intégration.
+L'accueil garde l'intégration d'origine des notifications en commentaire. Pour la rétablir :
+
+1. retirer le commentaire, et supprimer les balises du canal du réseau juste en dessous ;
+2. remettre dans `AIBSDKWorker.js`, à la racine, son contenu d'origine : une seule ligne
+   `importScripts`, visible dans l'historique git du fichier.
 
 ## Icônes
 

@@ -13,11 +13,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
     <link rel="stylesheet" href="assets/site.css">
-    <!-- Production web push, disabled during the local multi-worker test (/paris/, /rome/, /berlin/).
-         Uncomment to restore it.
+    <!-- Original web push integration, replaced during the multi-folder test by the network channel below.
+         Uncomment to restore it, and remove the network channel tags.
     <script src="https://app.allinbox.com/sdk/webpush/v1/AIB.sdk.js"
             data-aib-token="edea1ac606e11cb673a3dea5e064bde9b5d66ebb2da4da2c0639f2120e735822" data-aib-subscriber-id="" charset="utf-8" defer></script>
     -->
+
+    <!-- Network channel of the test: worker /AIBSDKWorker.js, scope "/" (the SDK defaults).
+         aib-local.js must run before the SDK: it sends its web push calls to the test instance. -->
+    <script src="assets/aib-local.js"></script>
+    <script src="/assets/sdk/AIB.sdk.js"
+            data-aib-token="0ba8e4b8f4cc13af1315cc88c8d236e43695e2a9bbbe0a8ed6cc419f094d9df2"
+            charset="utf-8"
+            defer></script>
+    <script src="assets/push-panel.js" defer></script>
     <script src="https://app.allinbox.com/sdk/chatbot/v1/AIB.sdk.js" data-aib-chatbot-key="cbk_gejkbjx2agtnqrdwcpopzkck" defer></script>
 </head>
 <body>
@@ -79,6 +88,20 @@
             Chaque centre a ses horaires. Paris ouvre tous les jours de 10h à 22h, Rome tous
             les jours de 11h à 23h, et Berlin du lundi au samedi de 10h à 21h.
         </p>
+    </section>
+
+    <section class="wrap section">
+        <aside class="push-panel home-push-panel" data-push-panel data-current-scope="/" aria-labelledby="push-title">
+            <h2 id="push-title">Notifications sur ce domaine</h2>
+            <p class="permission" data-push-permission>Le panneau lit l'état du navigateur.</p>
+            <ul class="stands" data-push-stands></ul>
+            <p class="note">
+                L'accueil enregistre le worker du réseau, dont la portée couvre tout le domaine.
+                Chaque centre enregistre son propre worker dans son dossier, et chaque worker
+                reçoit sa propre adresse d'abonnement.
+            </p>
+            <button type="button" class="button" data-push-refresh>Actualiser l'état</button>
+        </aside>
     </section>
 </main>
 

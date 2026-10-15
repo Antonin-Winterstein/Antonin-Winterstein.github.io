@@ -1,13 +1,15 @@
-// Shows, on every city page, what the browser holds for the whole domain:
-// the notification permission (one per domain) and, for each city, its
-// service worker and its push subscription (one per folder).
+// Shows what the browser holds for the whole domain: the notification
+// permission (one per domain) and, for the network and each city, its
+// service worker and its push subscription (one per scope).
 (() => {
     'use strict';
 
+    // "of", "for" and "page" keep the French sentences below grammatical.
     const CITIES = [
-        {name: 'Paris', scope: '/paris/'},
-        {name: 'Rome', scope: '/rome/'},
-        {name: 'Berlin', scope: '/berlin/'},
+        {name: 'Réseau', scope: '/', of: 'du réseau', for: 'le réseau', page: "l'accueil"},
+        {name: 'Paris', scope: '/paris/', of: 'de Paris', for: 'Paris', page: 'la page de Paris'},
+        {name: 'Rome', scope: '/rome/', of: 'de Rome', for: 'Rome', page: 'la page de Rome'},
+        {name: 'Berlin', scope: '/berlin/', of: 'de Berlin', for: 'Berlin', page: 'la page de Berlin'},
     ];
 
     const PERMISSIONS = {
@@ -49,7 +51,7 @@
     }
 
     function describe(stand) {
-        const name = stand.city.name;
+        const city = stand.city;
 
         if (stand.state === 'subscribed') {
             const url = new URL(stand.endpoint);
@@ -58,19 +60,19 @@
         }
 
         if (stand.state === 'worker') {
-            return `Le worker de ${name} est enregistré sur ${stand.city.scope}, mais le navigateur n'a pas d'abonnement.`;
+            return `Le worker ${city.of} est enregistré sur ${city.scope}, mais le navigateur n'a pas d'abonnement.`;
         }
 
-        if (stand.city.scope !== currentScope) {
-            return `Le navigateur n'a pas de worker pour ${name}. Ouvrez la page de ${name} pour en enregistrer un.`;
+        if (city.scope !== currentScope) {
+            return `Le navigateur n'a pas de worker pour ${city.for}. Ouvrez ${city.page} pour en enregistrer un.`;
         }
 
         // The SDK stops before registering anything once notifications are blocked.
         if (Notification.permission === 'denied') {
-            return `Le navigateur n'a pas de worker pour ${name}. Le SDK n'en enregistre pas, parce que les notifications sont refusées.`;
+            return `Le navigateur n'a pas de worker pour ${city.for}. Le SDK n'en enregistre pas, parce que les notifications sont refusées.`;
         }
 
-        return `Le navigateur n'a pas encore de worker pour ${name}. Le SDK l'enregistre au chargement de cette page.`;
+        return `Le navigateur n'a pas encore de worker pour ${city.for}. Le SDK l'enregistre au chargement de cette page.`;
     }
 
     function renderStand(stand) {

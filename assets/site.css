@@ -267,6 +267,10 @@ button:focus-visible {
     border-radius: var(--radius);
 }
 
+.home-push-panel {
+    max-width: 480px;
+}
+
 .push-panel h2 {
     margin-bottom: 4px;
 }
