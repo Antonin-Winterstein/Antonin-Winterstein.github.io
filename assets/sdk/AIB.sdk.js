@@ -132,10 +132,14 @@ class PushSubscriptionManager {
                     // key, so our messages could never reach it. Drop it and
                     // subscribe again below with this channel's key. Clearing
                     // the stored endpoint keeps the unsubscribe detection from
-                    // reading this as the visitor's own unsubscribe.
+                    // reading this as the visitor's own unsubscribe, and
+                    // clearing the cached key makes the new subscription use
+                    // the key the server holds now: the cache may still hold
+                    // the refused one, for instance after a channel was
+                    // recreated with new keys.
                     this.replacedEndpoint = subscription.endpoint;
                     await subscription.unsubscribe().catch(() => false);
-                    await this.storeCredentials({endpoint: null});
+                    await this.storeCredentials({endpoint: null, vapidFetchedAt: null});
                 }
 
                 // No active subscription → we may need to (re)subscribe, which
