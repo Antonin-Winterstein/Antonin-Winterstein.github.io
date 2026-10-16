@@ -16,6 +16,10 @@ class PushSubscriptionManager {
         // can find the same record from its own registration.
         this.credentialsKey = null;
 
+        // Endpoint of a browser subscription the server refused because it was
+        // made with another key; the new subscription replaces its server row.
+        this.replacedEndpoint = null;
+
         // The VAPID public key and prompt config are immutable-per-channel
         // (the key is generated once at channel creation and never rotated).
         // Cache them client-side so we don't hit /webpush/api/channels/vapid
@@ -117,7 +121,21 @@ class PushSubscriptionManager {
             .then(swRegistration => swRegistration.pushManager.getSubscription())
             .then(async (subscription) => {
                 if (subscription) {
-                    return this.sendSubscriptionToServer(subscription, 'PUT');
+                    const response = await this.sendSubscriptionToServer(subscription, 'PUT');
+
+                    if (!response || response.status !== 409) {
+                        return response;
+                    }
+
+                    // The server refused the subscription: another channel or
+                    // another push tool created it on this scope with its own
+                    // key, so our messages could never reach it. Drop it and
+                    // subscribe again below with this channel's key. Clearing
+                    // the stored endpoint keeps the unsubscribe detection from
+                    // reading this as the visitor's own unsubscribe.
+                    this.replacedEndpoint = subscription.endpoint;
+                    await subscription.unsubscribe().catch(() => false);
+                    await this.storeCredentials({endpoint: null});
                 }
 
                 // No active subscription → we may need to (re)subscribe, which
@@ -189,7 +207,7 @@ class PushSubscriptionManager {
                             applicationServerKey: this.urlBase64ToUint8Array(this.applicationServerKey),
                         }))
                         .then(newSub => newSub
-                            ? this.sendSubscriptionToServer(newSub, 'POST')
+                            ? this.saveNewSubscription(newSub)
                             : null)
                         .catch(err => {
                             // A subscribe failure is the symptom of a stale
@@ -213,7 +231,7 @@ class PushSubscriptionManager {
                             return null;
                         }
 
-                        return this.sendSubscriptionToServer(newSubscription, 'POST');
+                        return this.saveNewSubscription(newSubscription);
                     });
             })
             .catch(err => {
@@ -427,7 +445,32 @@ class PushSubscriptionManager {
             });
     }
 
-    sendSubscriptionToServer(subscription, method) {
+    // A subscription that replaces one the server refused updates that row in
+    // place (contact link and history kept); any other one is a new subscriber.
+    saveNewSubscription(subscription) {
+        if (this.replacedEndpoint) {
+            return this.sendSubscriptionToServer(subscription, 'PUT', this.replacedEndpoint);
+        }
+
+        return this.sendSubscriptionToServer(subscription, 'POST');
+    }
+
+    // Key the browser subscription was created with, as unpadded base64url like
+    // the channel keys; null where the browser does not expose it.
+    subscriptionKey(subscription) {
+        const key = subscription.options && subscription.options.applicationServerKey;
+
+        if (!key) {
+            return null;
+        }
+
+        return btoa(String.fromCharCode.apply(null, new Uint8Array(key)))
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=+$/, '');
+    }
+
+    sendSubscriptionToServer(subscription, method, oldEndpoint = null) {
         const key = subscription.getKey('p256dh');
         const token = subscription.getKey('auth');
         const contentEncoding = (PushManager.supportedContentEncodings || ['aesgcm'])[0];
@@ -442,8 +485,10 @@ class PushSubscriptionManager {
             },
             body: JSON.stringify({
                 endpoint: subscription.endpoint,
+                oldEndpoint,
                 publicKey: key ? btoa(String.fromCharCode.apply(null, new Uint8Array(key))) : null,
                 authToken: token ? btoa(String.fromCharCode.apply(null, new Uint8Array(token))) : null,
+                applicationServerKey: this.subscriptionKey(subscription),
                 contentEncoding,
                 userAgent,
                 subscriberId: this.subscriberId || null,
