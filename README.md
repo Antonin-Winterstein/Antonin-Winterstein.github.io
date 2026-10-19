@@ -45,6 +45,18 @@ fichier de la racine et garde la portée `/rome/`. Elle reproduit un site WordPr
 dossier est une page et ne peut pas contenir de fichier. Le navigateur enregistre alors le
 même fichier deux fois, une fois par portée, et Rome garde son propre abonnement.
 
+Deux pages chargent le canal de Rome hors de son dossier, comme un site qui sert un dossier
+aussi sans sa barre finale (`/rome` en plus de `/rome/`). La portée `/rome/` ne couvre pas ces
+adresses, et seule la portée du réseau les couvre.
+
+- `rome-hors-portee.html` charge le SDK du banc (`assets/sdk/AIB.sdk.js`). Le SDK y travaille
+  sur l'enregistrement de Rome : l'abonnement du réseau ne change pas.
+- `rome-hors-portee-ancien-sdk.html` charge la version précédente du SDK
+  (`assets/sdk/AIB.sdk.before-own-registration.js`). Cette version lit
+  `navigator.serviceWorker.ready`, qui rend l'enregistrement couvrant la page, donc celui du
+  réseau. Elle remplace l'abonnement du réseau par un abonnement à Rome. Une visite de
+  l'accueil rétablit ensuite l'abonnement du réseau.
+
 Le panneau « Notifications sur ce domaine » (`assets/push-panel.js`) affiche cet état sur
 l'accueil et sur chaque page de centre : l'autorisation du domaine, puis un voyant pour le
 réseau et pour chaque centre.

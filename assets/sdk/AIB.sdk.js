@@ -16,6 +16,15 @@ class PushSubscriptionManager {
         // can find the same record from its own registration.
         this.credentialsKey = null;
 
+        // This channel's registration, as register() returned it. Every push
+        // call goes through it rather than navigator.serviceWorker.ready, which
+        // gives the registration whose scope covers the page: on a page outside
+        // this channel's scope, a folder served without its trailing slash
+        // (/paris for the scope /paris/), that is another channel's
+        // registration, usually the root one, and this SDK would take over its
+        // subscription.
+        this.registration = null;
+
         // Endpoint of a browser subscription the server refused because it was
         // made with another key; the new subscription replaces its server row.
         this.replacedEndpoint = null;
@@ -115,8 +124,9 @@ class PushSubscriptionManager {
         // loaded lazily below, only on the path that actually (re)subscribes.
         navigator.serviceWorker.register(this.swPath, {scope: this.swScope})
             .then(registration => {
+                this.registration = registration;
                 this.credentialsKey = `scope:${registration.scope}`;
-                return navigator.serviceWorker.ready;
+                return this.activeRegistration();
             })
             .then(swRegistration => swRegistration.pushManager.getSubscription())
             .then(async (subscription) => {
@@ -205,7 +215,7 @@ class PushSubscriptionManager {
                         }
                     }
 
-                    return navigator.serviceWorker.ready
+                    return this.activeRegistration()
                         .then(reg => reg.pushManager.subscribe({
                             userVisibleOnly: true,
                             applicationServerKey: this.urlBase64ToUint8Array(this.applicationServerKey),
@@ -412,6 +422,46 @@ class PushSubscriptionManager {
         });
     }
 
+    // This channel's registration once its worker is active, the state the
+    // push manager needs to subscribe. It plays the part of
+    // navigator.serviceWorker.ready, but for this channel's scope instead of
+    // the scope that covers the page.
+    activeRegistration() {
+        const registration = this.registration;
+
+        if (registration.active) {
+            return Promise.resolve(registration);
+        }
+
+        const worker = registration.installing || registration.waiting;
+
+        if (!worker) {
+            return Promise.reject(new Error('[AIB SDK] The service worker has no worker to activate'));
+        }
+
+        return new Promise((resolve, reject) => {
+            const settle = () => {
+                if (worker.state === 'activated') {
+                    worker.removeEventListener('statechange', settle);
+                    resolve(registration);
+                } else if (worker.state === 'redundant') {
+                    worker.removeEventListener('statechange', settle);
+
+                    // A newer worker replaced this one while it installed:
+                    // wait for that one instead.
+                    if (registration.active || registration.installing || registration.waiting) {
+                        this.activeRegistration().then(resolve, reject);
+                    } else {
+                        reject(new Error('[AIB SDK] The service worker was discarded before activating'));
+                    }
+                }
+            };
+
+            worker.addEventListener('statechange', settle);
+            settle();
+        });
+    }
+
     requestPermission() {
         let userConsentPromise = Promise.resolve(true);
         if (this.shouldShowCustomPrompt()) {
@@ -431,7 +481,7 @@ class PushSubscriptionManager {
                     return null;
                 }
 
-                return navigator.serviceWorker.ready;
+                return this.activeRegistration();
             })
             .then(swRegistration => {
                 if (!swRegistration) return null;

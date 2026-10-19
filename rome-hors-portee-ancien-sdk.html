@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Rome hors de son dossier, ancien SDK - Horizon</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="/assets/site.css">
+
+    <!-- Must run before the SDK: sends its web push calls to the test instance. -->
+    <script src="/assets/aib-local.js"></script>
+    <!-- Same page with the previous SDK, which reads navigator.serviceWorker.ready: outside
+         /rome/, that is the root registration, whose subscription it takes over. -->
+    <script src="/assets/sdk/AIB.sdk.before-own-registration.js"
+            data-aib-token="9e6da38103c1e7c29a14f1905aa64fa96268fb5d02c45c4d4ff18c6f72004de8"
+            data-sw-path="/AIBSDKWorker.js"
+            data-sw-scope="/rome/"
+            charset="utf-8"
+            defer></script>
+    <script src="/assets/push-panel.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="wrap">
+        <a class="brand" href="/">Horizon</a>
+        <nav class="site-nav" aria-label="Nos centres">
+            <ul>
+                <li><a href="/paris/">Paris</a></li>
+                <li><a href="/rome/">Rome</a></li>
+                <li><a href="/berlin/">Berlin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="wrap city-title">
+        <h1>Rome, hors de son dossier (ancien SDK)</h1>
+        <p>
+            Cette page charge le canal de Rome à une adresse que la portée /rome/ ne couvre pas,
+            comme un dossier servi sans sa barre finale (/rome au lieu de /rome/).
+        </p>
+    </div>
+
+    <div class="wrap city-body">
+        <div>
+            <section aria-labelledby="about-title">
+                <h2 id="about-title">Ce que la page vérifie</h2>
+                <p>
+                    Cette page garde la version précédente du SDK, qui prend l'enregistrement de la
+                    racine : elle remplace l'abonnement du réseau par un abonnement à Rome, et le voyant
+                    du réseau change de fin d'adresse.
+                </p>
+            </section>
+        </div>
+
+        <aside class="push-panel" data-push-panel data-current-scope="/rome/" aria-labelledby="push-title">
+            <h2 id="push-title">Notifications sur ce domaine</h2>
+            <p class="permission" data-push-permission>Le panneau lit l'état du navigateur.</p>
+            <ul class="stands" data-push-stands></ul>
+            <button type="button" class="button" data-push-refresh>Actualiser l'état</button>
+        </aside>
+    </div>
+</main>
+</body>
+</html>
