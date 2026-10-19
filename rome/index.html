@@ -16,9 +16,11 @@
 
     <!-- Must run before the SDK: sends its web push calls to the test instance. -->
     <script src="../assets/aib-local.js"></script>
+    <!-- Rome has no worker copy in its folder: it registers the root file with its own scope,
+         like a WordPress page that cannot be a real directory. -->
     <script src="/assets/sdk/AIB.sdk.js"
             data-aib-token="9e6da38103c1e7c29a14f1905aa64fa96268fb5d02c45c4d4ff18c6f72004de8"
-            data-sw-path="/rome/AIBSDKWorker.js"
+            data-sw-path="/AIBSDKWorker.js"
             data-sw-scope="/rome/"
             charset="utf-8"
             defer></script>

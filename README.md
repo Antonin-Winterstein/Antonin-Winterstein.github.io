@@ -29,7 +29,7 @@ par centre dans son dossier.
 ```
 /                 accueil + AIBSDKWorker.js, portée /          (canal du réseau)
 /paris/           page + AIBSDKWorker.js, portée /paris/
-/rome/            page + AIBSDKWorker.js, portée /rome/
+/rome/            page seule, portée /rome/ avec le AIBSDKWorker.js de la racine
 /berlin/          page + AIBSDKWorker.js, portée /berlin/
 ```
 
@@ -39,6 +39,11 @@ navigateur enregistre ainsi un worker par canal, et chaque worker reçoit sa pro
 d'abonnement, même si la portée du réseau couvre aussi les dossiers. Le navigateur donne en
 revanche une seule autorisation de notification pour tout le domaine. Une page ne porte jamais
 deux canaux à la fois.
+
+Rome n'a pas de copie du worker dans son dossier : sa page pointe `data-sw-path` vers le
+fichier de la racine et garde la portée `/rome/`. Elle reproduit un site WordPress, où un
+dossier est une page et ne peut pas contenir de fichier. Le navigateur enregistre alors le
+même fichier deux fois, une fois par portée, et Rome garde son propre abonnement.
 
 Le panneau « Notifications sur ce domaine » (`assets/push-panel.js`) affiche cet état sur
 l'accueil et sur chaque page de centre : l'autorisation du domaine, puis un voyant pour le
