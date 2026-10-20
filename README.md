@@ -57,6 +57,13 @@ adresses, et seule la portée du réseau les couvre.
   réseau. Elle remplace l'abonnement du réseau par un abonnement à Rome. Une visite de
   l'accueil rétablit ensuite l'abonnement du réseau.
 
+Le dossier `demo/` sert à montrer la vérification d'installation. Sa page porte le code
+d'installation officiel, rendu inerte par `type="text/plain"` : le navigateur ne charge pas le
+SDK et n'abonne personne, mais la vérification lit cette balise comme le code posé sur la page.
+`demo/AIBSDKWorker.js` contient la ligne officielle. Quand le code pointe vers le dossier, la
+vérification passe. Quand il pointe vers la racine, elle lit le `AIBSDKWorker.js` de la racine,
+qui est la version modifiée du banc, et elle échoue.
+
 Le panneau « Notifications sur ce domaine » (`assets/push-panel.js`) affiche cet état sur
 l'accueil et sur chaque page de centre : l'autorisation du domaine, puis un voyant pour le
 réseau et pour chaque centre.
